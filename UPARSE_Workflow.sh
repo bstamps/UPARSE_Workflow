@@ -64,5 +64,10 @@ parallel_assign_taxonomy_rdp.py -v -O 4 -t /media/lab/Storage/Silva_111_post/tax
 echo “Adding Metadata”
 biom add-metadata --sc-separated taxonomy --observation-header OTUID,taxonomy --observation-metadata-fp otus/TaxonomyOut/RepSet_tax_assignments.txt -i otus/UPARSE.biom -o otus/otuTable.biom
 
+#Computing Summaries of Taxa
+echo "Computing Summaries"
+biom summarize-table -i otus/otuTable.biom -o Summary.txt
+biom summarize-table -i otus/otuTable.biom --qualitative -o QualSummary.txt
+
 #Done
 echo “Completed! Happy QIIMEing”
