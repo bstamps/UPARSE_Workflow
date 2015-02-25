@@ -1,18 +1,19 @@
 #!/bin/bash
 
 ##### Description
-# This script will take UPARSE, and create an OTU table suitable for integration into QIIME. Assumes your files are in seq/. 
+# This script will take UPARSE, and create an OTU table suitable for integration into QIIME. 
+# The script assumes you are in the directory you'll be analyzing the data in, and assumes your files are in seq/. 
+# I also assume (Many assumptions!) that if you used paired reads they have been joined. I use PEAR, and my primer set overlaps heavily (>100bp)
 
 ##### Needed software
-# QIIME
-# USEARCH 7 named as usearch
-
+# QIIME (1.9.0 at the time of the analysis of this dataset)
+# USEARCH 7 (AKA UPARSE) named as usearch in /usr/bin/ , or any other directory accessible by your $PATH
 
 # Use QIIME to prepare your FASTQ files. 
 echo “Starting… Extracting barcodes”
 extract_barcodes.py -a -f seq/Amp.fastq -m tags.txt -l 12 -o seq/prepped/
 
-# Use QIIME to demultiplex the data, with -q 0. Store output as fastq format (we will quality filter with usearch)
+# Use QIIME to demultiplex the data, with -q 0. Store output as fastq format (we will quality filter with usearch). This part of the analysis was taken from suggestions within the QIIME forums on best practices to integrate UPARSE into a usable QIIME workflow.
 echo “Splitting Libraries”
 split_libraries_fastq.py --store_demultiplexed_fastq --phred_quality_threshold 0 -i seq/prepped/reads.fastq -b seq/prepped/barcodes.fastq -m tags.txt --barcode_type 12 -o seq/SlOut/
 

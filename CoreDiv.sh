@@ -7,10 +7,10 @@
 # Pass the script by typing sh CoreDiv.sh $1
 # $1 is REQUIRED BY THE SCRIPT
 # Where $1 is the input needed for even sampling depth
-# IE "sh ochoinfo.sh 1728" will feed QIIME -e 1728 to all scripts which require it.
+# IE "sh CoreDiv.sh 1728" will feed QIIME -e 1728 to all scripts which require it.
 
 ##### Needed software
-# QIIME
+# QIIME (1.9.0)
 
 # First step- making a directory for it all
 mkdir DiversityAnalyses/
@@ -22,7 +22,7 @@ biom summarize-table --qualitative -i DiversityAnalyses/otuTable.biom -o Diversi
 
 # First step- taxa summaries
 echo "Creating Taxonomy Summaries"
-summarize_taxa_through_plots.py -i DiversityAnalyses/otuTable.biom -o DiversityAnalyses/taxa_summary/ -c $2 -m tags.txt
+summarize_taxa_through_plots.py -i DiversityAnalyses/otuTable.biom -o DiversityAnalyses/taxa_summary/ -m tags.txt
 
 # Beta Diversity Plots
 echo "Processing Beta Diversity"
